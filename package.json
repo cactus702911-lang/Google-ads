@@ -1,0 +1,23 @@
+{
+  "name": "google-adas-website",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "build": "node build_site.js",
+    "start": "node server.cjs",
+    "dev": "node server.cjs",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "cheerio": "^1.2.0",
+    "jsdom": "^29.1.1"
+  },
+  "devDependencies": {
+    "sharp": "^0.34.5",
+    "tailwindcss": "^3.4.19"
+  }
+}
