@@ -632,6 +632,18 @@ processTemplate('blog.html', 'blog.html', ($) => {
             $('#product-challenge').html(c.challenge);
         }
 
+        // Process (show section only if data exists)
+        if (c.process) {
+            $('#process-section').removeClass('hidden');
+            $('#product-process').html(c.process);
+        }
+
+        // Results (show section only if data exists)
+        if (c.results) {
+            $('#results-section').removeClass('hidden');
+            $('#product-results').html(c.results);
+        }
+
         // Specs — map from c.specs object
         const specs = c.specs || {};
         $('#spec-age').text(specs.duration || c.spec_age || 'N/A');
@@ -648,11 +660,12 @@ processTemplate('blog.html', 'blog.html', ($) => {
         const $metrics = $('#metrics-grid');
         if ($metrics.length && c.metrics && c.metrics.length > 0) {
             $metrics.empty();
+            $metrics.removeClass('md:grid-cols-4').addClass(`md:grid-cols-${Math.min(c.metrics.length, 4)}`);
             c.metrics.forEach(m => {
                 $metrics.append(`
-                    <div class="text-center p-4 md:p-6 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-xl hover:border-blue-300 hover:-translate-y-2 transition-all duration-300 group">
-                        <div class="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 mb-3 group-hover:scale-110 transition-transform">${m}</div>
-                        <div class="text-slate-500 text-xs font-bold uppercase tracking-widest group-hover:text-blue-600 transition-colors">Key Metric</div>
+                    <div class="text-center p-4 md:p-6 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-xl hover:border-blue-300 hover:-translate-y-1 transition-all duration-300 group flex flex-col justify-center items-center h-full">
+                        <div class="text-3xl md:text-4xl font-black text-blue-600 mb-3 group-hover:scale-105 transition-transform break-words w-full">${m}</div>
+                        <div class="text-slate-500 text-xs font-bold uppercase tracking-widest group-hover:text-blue-700 transition-colors">Key Metric</div>
                     </div>
                 `);
             });
@@ -666,11 +679,12 @@ processTemplate('blog.html', 'blog.html', ($) => {
             
             if (metricItems.length) {
                 $metrics.empty();
+                $metrics.removeClass('md:grid-cols-4').addClass(`md:grid-cols-${Math.min(metricItems.length, 3)}`);
                 metricItems.forEach(m => {
                     $metrics.append(`
-                        <div class="text-center p-4 md:p-6 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-xl hover:border-blue-300 hover:-translate-y-2 transition-all duration-300 group">
-                            <div class="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 mb-3 group-hover:scale-110 transition-transform tracking-tight">${m.value}</div>
-                            <div class="text-slate-500 text-xs font-bold uppercase tracking-widest group-hover:text-blue-600 transition-colors">${m.label}</div>
+                        <div class="text-center p-4 md:p-6 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-xl hover:border-blue-300 hover:-translate-y-1 transition-all duration-300 group flex flex-col justify-center items-center h-full">
+                            <div class="text-3xl md:text-4xl font-black text-blue-600 mb-3 group-hover:scale-105 transition-transform tracking-tight break-words w-full">${m.value}</div>
+                            <div class="text-slate-500 text-xs font-bold uppercase tracking-widest group-hover:text-blue-700 transition-colors">${m.label}</div>
                         </div>
                     `);
                 });

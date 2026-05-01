@@ -351,6 +351,9 @@ var siteContent = {
                 "gallery": [],
                 "description": "We implemented a comprehensive SEO strategy for a leading fashion retailer, resulting in a 200% increase in organic traffic within 6 months. Our approach focused on technical SEO audits, keyword-rich content creation, and high-authority link building.",
                 "shortDescription": "Boosted organic traffic by 200% for a fashion retailer via technical SEO and content marketing.",
+                "challenge": "<p>FashionBrand, a mid-sized e-commerce retailer, had hit a plateau in organic traffic. Their website was plagued with technical SEO issues, duplicate content from product variants, and a weak backlink profile. They were losing market share to newer competitors who ranked higher for high-intent \"buy\" keywords.</p>",
+                "process": "<p>Our team executed a multi-phased SEO turnaround strategy:</p><ol><li><strong>Technical Audit & Fixes:</strong> Resolved pagination issues, optimized canonical tags, and improved Core Web Vitals to ensure lightning-fast page loads.</li><li><strong>Content Revamp:</strong> Rewrote over 500 product descriptions and created comprehensive category buying guides to satisfy user intent.</li><li><strong>Strategic Link Building:</strong> Executed a digital PR campaign that secured high-authority backlinks from major fashion publications and blogs.</li></ol>",
+                "results": "<p>The results were beyond the client's expectations, transforming their primary acquisition channel.</p><ul><li><strong>200% Increase</strong> in organic non-branded traffic within 6 months.</li><li><strong>145% Growth</strong> in organic revenue year-over-year.</li><li><strong>Ranked #1</strong> for over 50 high-volume product category keywords.</li></ul>",
                 "specs": {
                     "duration": "6 Months",
                     "roi": "250%",
@@ -370,6 +373,9 @@ var siteContent = {
                 "gallery": [],
                 "description": "For this B2B SaaS client, we optimized their Google Ads account to reduce CPA by 40% while increasing lead volume. We utilized single keyword ad groups (SKAGs) and advanced audience targeting to reach decision-makers.",
                 "shortDescription": "Reduced CPA by 40% and increased qualified leads for a B2B SaaS company.",
+                "challenge": "<p>The client was spending over $10,000 per month on Google Ads but facing a staggeringly high Cost Per Acquisition (CPA). The lead quality was poor, resulting in the sales team wasting time on unqualified prospects. Their previous agency had cast too wide a net with broad match keywords, causing budget bleed across irrelevant search terms.</p>",
+                "process": "<p>Our strategy involved a complete restructuring of their Google Ads account. We implemented:</p><ul><li><strong>SKAGs (Single Keyword Ad Groups)</strong> for their highest-intent search terms.</li><li><strong>Negative Keyword Sculpting</strong> to immediately stop budget waste.</li><li><strong>Custom Landing Pages</strong> tailored to specific buyer personas (e.g., Enterprise vs. SMB).</li><li><strong>Enhanced Conversion Tracking</strong> integrating offline sales data from their CRM.</li></ul>",
+                "results": "<p>Within the first 60 days, the impact was transformative. We not only stopped the budget bleed but also scaled their lead volume significantly.</p><ul><li><strong>40% Reduction</strong> in Cost Per Acquisition (CPA).</li><li><strong>150% Increase</strong> in Marketing Qualified Leads (MQLs).</li><li><strong>400% ROI</strong> achieved consistently over a 6-month period.</li></ul><p>The client has since doubled their ad spend with us due to the predictable and profitable lead flow.</p>",
                 "specs": {
                     "duration": "Ongoing",
                     "roi": "400%",
