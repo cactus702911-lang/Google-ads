@@ -298,7 +298,7 @@ function handlePostRequest(req, res, filePath, callback) {
 }
 
 function generateSitemap(data) {
-    const baseUrl = "https://digitalgrowth.agency";
+    const baseUrl = "https://digitalgrowth24.agency";
     const date = new Date().toISOString().split('T')[0];
     
     let xml = `<?xml version="1.0" encoding="UTF-8"?>
