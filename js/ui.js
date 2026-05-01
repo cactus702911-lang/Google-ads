@@ -278,3 +278,60 @@ const yearEl = document.getElementById('current-year');
 if(yearEl && !yearEl.textContent) {
     yearEl.textContent = new Date().getFullYear();
 }
+
+// Global Link Fix for GitHub Pages and Static HTML routing
+(function fixLinksForStaticRouting() {
+    const isGitHubPages = window.location.hostname.includes('github.io');
+    const repoName = '/Google-ads'; // Repository name for GitHub Pages
+
+    function processLinks() {
+        document.querySelectorAll('a').forEach(a => {
+            let href = a.getAttribute('href');
+            if (!href || href.startsWith('http') || href.startsWith('mailto:') || href.startsWith('tel:') || href.startsWith('#')) return;
+
+            let newHref = href;
+
+            // 1. Add .html to root pages if missing (for both local and GitHub Pages)
+            const rootPages = ['/about', '/portfolio', '/team', '/blog', '/contact', '/privacy', '/terms', '/cookies', '/services'];
+            if (rootPages.includes(newHref)) {
+                newHref += '.html';
+            }
+
+            // 2. Add /index.html to service and blog nested pages if missing
+            if ((newHref.startsWith('/services/') || newHref.startsWith('/blog/') || newHref.startsWith('/case-study/')) && !newHref.endsWith('.html')) {
+                if (!newHref.endsWith('/')) newHref += '/';
+                newHref += 'index.html';
+            }
+
+            // 3. Append repo name if on GitHub Pages and it's an absolute path
+            if (isGitHubPages && newHref.startsWith('/') && !newHref.startsWith(repoName)) {
+                newHref = repoName + newHref;
+            }
+
+            if (newHref !== href) {
+                a.setAttribute('href', newHref);
+            }
+        });
+    }
+
+    // Run on script load
+    processLinks();
+
+    // Run on DOM loaded
+    document.addEventListener('DOMContentLoaded', processLinks);
+
+    // Observe DOM changes (for dynamic header/footer injection)
+    const observer = new MutationObserver((mutations) => {
+        let shouldProcess = false;
+        for (let m of mutations) {
+            if (m.addedNodes.length > 0) {
+                shouldProcess = true;
+                break;
+            }
+        }
+        if (shouldProcess) processLinks();
+    });
+
+    observer.observe(document.documentElement, { childList: true, subtree: true });
+})();
+
