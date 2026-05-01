@@ -619,6 +619,7 @@ processTemplate('blog.html', 'blog.html', ($) => {
         $('#product-category').text(c.category);
         $('#product-category-2').text(c.category);
         $('#sidebar-category').text(c.category);
+        $('#meta-description-display').text(c.shortDescription || '');
         $('#product-image').attr('src', c.image).attr('alt', c.title);
         if (c.image) $('#product-hero-bg').attr('style', `background-image:url('${c.image}')`);
 
@@ -649,24 +650,27 @@ processTemplate('blog.html', 'blog.html', ($) => {
             $metrics.empty();
             c.metrics.forEach(m => {
                 $metrics.append(`
-                    <div class="text-center">
-                        <div class="text-3xl md:text-4xl font-extrabold text-white mb-1">${m}</div>
+                    <div class="text-center p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-blue-200 hover:bg-blue-50 transition-colors">
+                        <div class="text-3xl md:text-4xl font-extrabold text-blue-600 mb-2">${m}</div>
+                        <div class="text-slate-500 text-sm font-medium uppercase tracking-wider">Key Metric</div>
                     </div>
                 `);
             });
         } else if ($metrics.length) {
             // Auto-build metrics from specs if no explicit metrics array
             const metricItems = [];
-            if (specs.roi) metricItems.push({ label: 'ROI', value: specs.roi });
-            if (specs.duration) metricItems.push({ label: 'Duration', value: specs.duration });
-            if (specs.reach) metricItems.push({ label: 'Reach', value: specs.reach });
+            if (specs.roi) metricItems.push({ label: 'Return on Investment', value: specs.roi });
+            if (specs.duration) metricItems.push({ label: 'Project Duration', value: specs.duration });
+            if (specs.reach) metricItems.push({ label: 'Total Reach', value: specs.reach });
+            if (specs.platform) metricItems.push({ label: 'Primary Platform', value: specs.platform });
+            
             if (metricItems.length) {
                 $metrics.empty();
                 metricItems.forEach(m => {
                     $metrics.append(`
-                        <div class="text-center">
-                            <div class="text-3xl font-extrabold text-white mb-1">${m.value}</div>
-                            <div class="text-blue-200 text-sm">${m.label}</div>
+                        <div class="text-center p-4 md:p-6 rounded-xl bg-slate-50 border border-slate-100 hover:border-blue-200 hover:bg-blue-50 hover:-translate-y-1 transition-all duration-300">
+                            <div class="text-3xl md:text-4xl font-extrabold text-blue-600 mb-2 tracking-tight">${m.value}</div>
+                            <div class="text-slate-500 text-xs md:text-sm font-bold uppercase tracking-widest">${m.label}</div>
                         </div>
                     `);
                 });
