@@ -131,10 +131,10 @@ function getFooterHtml() {
                         <a href="#" class="bg-white/10 p-2 rounded-full hover:bg-blue-600 transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-facebook"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
                         </a>
-                        <a href="https://linkedin.com/company/digitalgrowth24" target="_blank" class="bg-white/10 p-2 rounded-full hover:bg-blue-600 transition-colors">
+                        <a href="https://linkedin.com/company/DigitalGrowth24" target="_blank" class="bg-white/10 p-2 rounded-full hover:bg-blue-600 transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
                         </a>
-                        <a href="https://twitter.com/digitalgrowth24" target="_blank" class="bg-white/10 p-2 rounded-full hover:bg-blue-600 transition-colors">
+                        <a href="https://twitter.com/DigitalGrowth24" target="_blank" class="bg-white/10 p-2 rounded-full hover:bg-blue-600 transition-colors">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-twitter"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>
                         </a>
                     </div>
@@ -564,7 +564,7 @@ processTemplate('blog.html', 'blog.html', ($) => {
                         <div class="p-6 flex flex-col flex-grow">
                             <div class="flex items-center gap-4 text-xs text-slate-500 mb-3">
                                 <span>📅 ${b.date}</span>
-                                <span>👤 ${b.author || 'digitalgrowth24'}</span>
+                                <span>👤 ${b.author || 'DigitalGrowth24'}</span>
                             </div>
                             <h2 class="text-xl font-bold text-slate-800 mb-3 group-hover:text-blue-600 transition-colors line-clamp-2 flex-grow">
                                 <a href="/blog/${b.slug}">${b.title}</a>
@@ -602,7 +602,7 @@ processTemplate('blog.html', 'blog.html', ($) => {
 // Build Individual Case Studies
 (siteContent.caseStudies?.studies || []).forEach(c => {
     processTemplate('case-study.html', `case-study/${c.slug}/index.html`, ($) => {
-        $('title').text(`${c.title} | Case Study | digitalgrowth24`);
+        $('title').text(`${c.title} | Case Study | DigitalGrowth24`);
         $('meta[name="description"]').attr('content', c.shortDescription || c.description || '');
 
         // Hero
@@ -706,12 +706,12 @@ processTemplate('blog.html', 'blog.html', ($) => {
 (siteContent.blog?.posts || []).forEach(b => {
     processTemplate('blog-post.html', `blog/${b.slug}/index.html`, ($) => {
         // SEO & Meta
-        $('title').text(`${b.title} | digitalgrowth24 Blog`);
+        $('title').text(`${b.title} | DigitalGrowth24 Blog`);
         $('#meta-description').attr('content', b.excerpt || b.title);
         $('#og-title').attr('content', b.title);
         $('#og-description').attr('content', b.excerpt || '');
         $('#og-image').attr('content', b.image || '');
-        $('#canonical-url').attr('href', `https://digitalgrowth24.agency/blog/${b.slug}`);
+        $('#canonical-url').attr('href', `https://DigitalGrowth24.agency/blog/${b.slug}`);
 
         // Hero & Content
         $('#blog-title').text(b.title);
@@ -719,8 +719,8 @@ processTemplate('blog.html', 'blog.html', ($) => {
         $('#blog-category-breadcrumb').text(b.category);
         $('#blog-tag').text(b.category);
         $('#blog-date').text(b.date);
-        $('#blog-author').text(b.author || 'digitalgrowth24 Team');
-        $('#sidebar-author').text(b.author || 'digitalgrowth24 Team');
+        $('#blog-author').text(b.author || 'DigitalGrowth24 Team');
+        $('#sidebar-author').text(b.author || 'DigitalGrowth24 Team');
         $('#blog-content').html(b.content);
 
         // Featured image
@@ -735,7 +735,7 @@ processTemplate('blog.html', 'blog.html', ($) => {
         $('#blog-read-time').text(`${readMins} min read`);
 
         // Share links
-        const encodedUrl = encodeURIComponent(`https://digitalgrowth24.agency/blog/${b.slug}`);
+        const encodedUrl = encodeURIComponent(`https://DigitalGrowth24.agency/blog/${b.slug}`);
         const encodedTitle = encodeURIComponent(b.title);
         $('#share-twitter').attr('href', `https://twitter.com/intent/tweet?url=${encodedUrl}&text=${encodedTitle}`);
         $('#share-linkedin').attr('href', `https://www.linkedin.com/sharing/share-offsite/?url=${encodedUrl}`);
@@ -790,7 +790,7 @@ processTemplate('blog.html', 'blog.html', ($) => {
 (siteContent.header?.categories || []).forEach(cat => {
     const slug = cat.toLowerCase().replace(/ /g, '-');
     processTemplate('service-details.html', `services/${slug}/index.html`, ($) => {
-        $('title').text(`${cat} Services | digitalgrowth24`);
+        $('title').text(`${cat} Services | DigitalGrowth24`);
         $('#service-title').text(`${cat} Services`);
         $('#service-description').text(`Comprehensive ${cat} solutions tailored for your business growth.`);
 
