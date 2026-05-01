@@ -624,8 +624,6 @@ processTemplate('blog.html', 'blog.html', ($) => {
 
         // Hero
         $('#product-title').text(c.title);
-        $('#product-category').text(c.category);
-        $('#product-category-2').text(c.category);
         $('#sidebar-category').text(c.category);
         $('#meta-description-display').text(c.shortDescription || '');
         $('#product-image').attr('src', c.image).attr('alt', c.title);
