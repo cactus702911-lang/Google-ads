@@ -249,9 +249,10 @@ function processTemplate(templateName, outputPath, modifyDom) {
     $('script[src*="tailwindcss"]').remove();
 
     // Strip previously injected header/footer blocks (identified by unique IDs)
-    $('#top-bar-container').parent().find('#top-bar-container').first().parent().each(function () {
-        // Only remove top-level injected header wrapper, not page-internal elements
-    });
+    $('#top-bar-container').remove();
+    $('header').first().remove();
+    $('footer').first().remove();
+
     // Remove injected notification bar, header, and footer if already present
     $('body > div#top-bar-container').remove();
     $('body > header').first().remove();
@@ -297,6 +298,13 @@ function processTemplate(templateName, outputPath, modifyDom) {
     // CSR Update: Do NOT inject HTML header and footer directly
     // Instead, we will rely on client-side JS to load them.
     // We only inject the data-loader and CSR init script.
+    
+    // First remove any old CSR init scripts to avoid duplicates
+    $('script').filter(function() {
+        const code = $(this).html() || '';
+        return code.includes('window.loadSiteData') && code.includes('window.renderHeader');
+    }).remove();
+
     $('head').append(`<script src="${prefix}js/data-loader.js"></script>`);
     
     // We pass pageName to CSR init so it knows what to load
