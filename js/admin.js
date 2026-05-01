@@ -86,6 +86,12 @@ function initializeDashboard() {
     lucide.createIcons();
 
     content = JSON.parse(JSON.stringify(siteContent));
+    if (content.favicon) {
+        const iconLink = document.querySelector('link[rel="icon"]') || document.createElement('link');
+        iconLink.rel = 'icon';
+        iconLink.href = content.favicon;
+        document.head.appendChild(iconLink);
+    }
     renderAll();
 }
 
@@ -119,6 +125,8 @@ function renderGeneral() {
     const f = content.footer || {};
 
     set('g-logo',         h.logoText || '');
+    set('g-logo-image',   h.logoImage || '');
+    set('g-favicon',      content.favicon || '');
     set('g-notification', content.notification || '');
     set('g-cta',          h.ctaButton || '');
     set('g-categories',   (h.categories || []).join(', '));
@@ -146,6 +154,8 @@ function updateGeneralFromDOM() {
     if (!content.footer)  content.footer  = {};
 
     content.header.logoText    = get('g-logo');
+    content.header.logoImage   = get('g-logo-image');
+    content.favicon            = get('g-favicon');
     content.notification       = get('g-notification');
     content.header.ctaButton   = get('g-cta');
     content.header.categories  = get('g-categories').split(',').map(s => s.trim()).filter(Boolean);
@@ -477,11 +487,12 @@ function saveToDisk() {
     });
 }
 
-async function handleImageUpload(input, targetId) {
+async function handleImageUpload(input, targetId, uploadType = 'general') {
     const file = input.files[0];
     if (!file) return;
     const formData = new FormData();
     formData.append('image', file);
+    formData.append('type', uploadType);
     try {
         const res = await fetch('/api/upload', { method: 'POST', body: formData });
         const data = await res.json();

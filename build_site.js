@@ -271,9 +271,18 @@ function processTemplate(templateName, outputPath, modifyDom) {
     // Inject siteContent directly into head
     $('head').prepend(`<script>var siteContent = ${JSON.stringify(siteContent)};</script>`);
 
-    // Inject CSS
+    // Define depth prefix for paths
     const depth = outputPath.split('/').length - 1;
     const prefix = depth > 0 ? '../'.repeat(depth) : './';
+    
+    // Inject dynamic favicon if set
+    if (siteContent.favicon) {
+        $('link[rel="icon"]').remove();
+        $('link[rel="shortcut icon"]').remove();
+        $('head').append(`<link rel="icon" href="${prefix + siteContent.favicon.replace(/^\//, '')}">`);
+    }
+
+    // Inject CSS
     
     // Inject Tailwind CSS as preload then link for Critical CSS handling
     $('head').append(`<link rel="preload" href="${prefix}css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">`);

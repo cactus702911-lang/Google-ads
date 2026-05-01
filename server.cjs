@@ -3,6 +3,7 @@ const fs = require('fs');
 const path = require('path');
 const zlib = require('zlib');
 const { execFile } = require('child_process');
+const sharp = require('sharp');
 
 function runBuild() {
     execFile('node', ['build_site.js'], { cwd: __dirname }, (err, stdout, stderr) => {
@@ -85,32 +86,62 @@ const server = http.createServer((req, res) => {
         let body = [];
         
         req.on('data', (chunk) => body.push(chunk));
-        req.on('end', () => {
+        req.on('end', async () => {
             const buffer = Buffer.concat(body);
-            const data = buffer.toString('binary'); // Use binary for raw parsing
+            const data = buffer.toString('binary');
             
-            // Simple multipart/form-data parser
             const parts = data.split('--' + boundary);
+            let fileData = null;
+            let originalFilename = '';
+            let uploadType = 'general';
             
             for (let part of parts) {
+                if (part.includes('name="type"')) {
+                    const contentStart = part.indexOf('\r\n\r\n') + 4;
+                    const contentEnd = part.lastIndexOf('\r\n');
+                    uploadType = part.substring(contentStart, contentEnd).trim();
+                }
                 if (part.includes('filename="')) {
                     const filenameMatch = part.match(/filename="(.+?)"/);
                     if (!filenameMatch) continue;
-                    
-                    const originalFilename = filenameMatch[1];
-                    const ext = path.extname(originalFilename);
-                    const newFilename = Date.now() + ext;
-                    
-                    // Extract file content (after double CRLF)
+                    originalFilename = filenameMatch[1];
                     const contentStart = part.indexOf('\r\n\r\n') + 4;
                     const contentEnd = part.lastIndexOf('\r\n');
-                    const fileData = buffer.slice(
-                        buffer.indexOf(part) + contentStart, 
-                        buffer.indexOf(part) + contentEnd
+                    fileData = buffer.slice(
+                        data.indexOf(part) + contentStart, 
+                        data.indexOf(part) + contentEnd
                     );
+                }
+            }
+            
+            if (fileData) {
+                try {
+                    let processedBuffer = fileData;
+                    let newFilename = Date.now();
+                    let ext = '.webp';
                     
-                    // Save file
-                    fs.writeFile(path.join(UPLOAD_DIR, newFilename), fileData, (err) => {
+                    if (uploadType === 'logo') {
+                        // Optimize logo (resize max height 100px, format webp)
+                        processedBuffer = await sharp(fileData)
+                            .resize({ height: 100, withoutEnlargement: true })
+                            .webp({ quality: 80 })
+                            .toBuffer();
+                        newFilename += '_logo' + ext;
+                    } else if (uploadType === 'favicon') {
+                        // Optimize favicon (resize exactly 32x32, format png)
+                        ext = '.png';
+                        processedBuffer = await sharp(fileData)
+                            .resize(32, 32)
+                            .png({ quality: 100 })
+                            .toBuffer();
+                        newFilename += '_favicon' + ext;
+                    } else {
+                        // General upload
+                        ext = path.extname(originalFilename);
+                        newFilename += ext;
+                    }
+                    
+                    fs.writeFile(path.join(UPLOAD_DIR, newFilename), processedBuffer, (err) => {
                         if (err) {
                             res.writeHead(500, { 'Content-Type': 'application/json' });
                             res.end(JSON.stringify({ success: false, message: 'File save error' }));
@@ -119,8 +150,12 @@ const server = http.createServer((req, res) => {
                             res.end(JSON.stringify({ success: true, url: `/images/${newFilename}` }));
                         }
                     });
-                    return; // Only process first file
+                } catch (err) {
+                    console.error("Image processing error:", err);
+                    res.writeHead(500, { 'Content-Type': 'application/json' });
+                    res.end(JSON.stringify({ success: false, message: 'Error processing image' }));
                 }
+                return;
             }
             
             res.writeHead(400, { 'Content-Type': 'application/json' });
