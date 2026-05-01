@@ -9,7 +9,7 @@
     <style>body { font-family: 'Inter', sans-serif; }</style>
 <link rel="preload" href="./css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="./css/style.css"></noscript>
 <script src="./js/data-loader.js"></script>
-<link rel="preload" href="./css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="./css/style.css"></noscript><script src="./js/data-loader.js"></script><link rel="preload" href="./css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="./css/style.css"></noscript><script src="./js/data-loader.js"></script><link rel="preload" href="./css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="./css/style.css"></noscript><link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" media="print" onload="this.media='all'"><script src="./js/data-loader.js"></script></head>
+<link rel="preload" href="./css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="./css/style.css"></noscript><script src="./js/data-loader.js"></script><link rel="preload" href="./css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="./css/style.css"></noscript><script src="./js/data-loader.js"></script><link rel="preload" href="./css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="./css/style.css"></noscript><script src="./js/data-loader.js"></script><link rel="preload" href="./css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'"><noscript><link rel="stylesheet" href="./css/style.css"></noscript><link rel="stylesheet" href="https://unpkg.com/aos@2.3.1/dist/aos.css" media="print" onload="this.media='all'"><script src="./js/data-loader.js"></script></head>
 <body class="bg-slate-50 text-slate-900 flex flex-col min-h-screen">
     
 
@@ -728,6 +728,16 @@
             </span>
         </a>
     </div>
+    
+        <script>
+            document.addEventListener('DOMContentLoaded', async () => {
+                const siteData = await window.loadSiteData('services');
+                if (siteData && window.renderHeader && window.renderFooter) {
+                    window.renderHeader(siteData.common.header, siteData.common.notification);
+                    window.renderFooter(siteData.common.footer, siteData.common.social);
+                }
+            });
+        </script>
     
         <script>
             document.addEventListener('DOMContentLoaded', async () => {

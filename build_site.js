@@ -650,9 +650,9 @@ processTemplate('blog.html', 'blog.html', ($) => {
             $metrics.empty();
             c.metrics.forEach(m => {
                 $metrics.append(`
-                    <div class="text-center p-4 rounded-xl bg-slate-50 border border-slate-100 hover:border-blue-200 hover:bg-blue-50 transition-colors">
-                        <div class="text-3xl md:text-4xl font-extrabold text-blue-600 mb-2">${m}</div>
-                        <div class="text-slate-500 text-sm font-medium uppercase tracking-wider">Key Metric</div>
+                    <div class="text-center p-4 md:p-6 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-xl hover:border-blue-300 hover:-translate-y-2 transition-all duration-300 group">
+                        <div class="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 mb-3 group-hover:scale-110 transition-transform">${m}</div>
+                        <div class="text-slate-500 text-xs font-bold uppercase tracking-widest group-hover:text-blue-600 transition-colors">Key Metric</div>
                     </div>
                 `);
             });
@@ -668,9 +668,9 @@ processTemplate('blog.html', 'blog.html', ($) => {
                 $metrics.empty();
                 metricItems.forEach(m => {
                     $metrics.append(`
-                        <div class="text-center p-4 md:p-6 rounded-xl bg-slate-50 border border-slate-100 hover:border-blue-200 hover:bg-blue-50 hover:-translate-y-1 transition-all duration-300">
-                            <div class="text-3xl md:text-4xl font-extrabold text-blue-600 mb-2 tracking-tight">${m.value}</div>
-                            <div class="text-slate-500 text-xs md:text-sm font-bold uppercase tracking-widest">${m.label}</div>
+                        <div class="text-center p-4 md:p-6 rounded-2xl bg-white border border-slate-100 shadow-sm hover:shadow-xl hover:border-blue-300 hover:-translate-y-2 transition-all duration-300 group">
+                            <div class="text-3xl md:text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-blue-600 to-indigo-600 mb-3 group-hover:scale-110 transition-transform tracking-tight">${m.value}</div>
+                            <div class="text-slate-500 text-xs font-bold uppercase tracking-widest group-hover:text-blue-600 transition-colors">${m.label}</div>
                         </div>
                     `);
                 });
